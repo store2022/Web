@@ -6,18 +6,17 @@
     <title>Auto Share</title>
 </head>
 <body>
+    <button id="triggerShare" style="display:none;">Share</button>
     <script>
-        // ฟังก์ชันเพื่อดึงค่า query parameters
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        // เรียกใช้งาน navigator.share ทันทีที่หน้าเว็บถูกโหลด
         async function shareContent() {
             const title = getQueryParam('title') || 'Default Title';
             const text = getQueryParam('text') || 'Default Text';
-            const url = getQueryParam('url') || window.location.origin;
+           // const url = getQueryParam('url') || window.location.origin;
 
             if (navigator.share) {
                 try {
@@ -35,8 +34,10 @@
             }
         }
 
-        // เรียกใช้งาน shareContent ทันทีที่หน้าเว็บถูกโหลด
-        window.onload = shareContent;
+        window.onload = function() {
+            document.getElementById('triggerShare').click();
+        };
+        document.getElementById('triggerShare').addEventListener('click', shareContent);
     </script>
 </body>
 </html>
