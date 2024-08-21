@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share</title>
+    <title>Auto Share</title>
 </head>
 <body>
-    <button id="shareButton">Share</button>
     <script>
+        // ฟังก์ชันเพื่อดึงค่า query parameters
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
-        document.getElementById('shareButton').addEventListener('click', async () => {
+        // เรียกใช้งาน navigator.share ทันทีที่หน้าเว็บถูกโหลด
+        async function shareContent() {
             const title = getQueryParam('title') || 'Default Title';
             const text = getQueryParam('text') || 'Default Text';
             const url = getQueryParam('url') || window.location.origin;
@@ -32,7 +33,10 @@
             } else {
                 console.log('Web Share API not supported in this browser.');
             }
-        });
+        }
+
+        // เรียกใช้งาน shareContent ทันทีที่หน้าเว็บถูกโหลด
+        window.onload = shareContent;
     </script>
 </body>
 </html>
