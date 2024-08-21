@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share</title>
+</head>
+<body>
+    <button id="shareButton">Share</button>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        document.getElementById('shareButton').addEventListener('click', async () => {
+            const title = getQueryParam('title') || 'Default Title';
+            const text = getQueryParam('text') || 'Default Text';
+            const url = getQueryParam('url') || window.location.origin;
+
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title,
+                        text: text,
+                        url: url,
+                    });
+                    console.log('Shared successfully');
+                } catch (error) {
+                    console.log('Sharing failed', error);
+                }
+            } else {
+                console.log('Web Share API not supported in this browser.');
+            }
+        });
+    </script>
+</body>
+</html>
