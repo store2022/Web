@@ -16,14 +16,14 @@
         async function shareContent() {
             const title = getQueryParam('title') || 'Default Title';
             const text = getQueryParam('text') || 'Default Text';
-           // const url = getQueryParam('url') || window.location.origin;
+            const url = getQueryParam('url') || window.location.origin;
 
             if (navigator.share) {
                 try {
                     await navigator.share({
                         title: title,
                         text: text,
-                       // url: url,
+                        url: url,
                     });
                     console.log('Shared successfully');
                 } catch (error) {
