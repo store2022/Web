@@ -4,19 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Share</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-    <button id="shareButton">Share</button>
+<body class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4">
+                    <h3 class="text-center mb-4">Share Content</h3>
+                    <div class="form-group">
+                        <label for="titleInput">Title</label>
+                        <input type="text" id="titleInput" class="form-control" placeholder="Enter title">
+                    </div>
+                    <div class="form-group">
+                        <label for="textInput">Text</label>
+                        <textarea id="textInput" class="form-control" placeholder="Enter text"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="urlInput">URL</label>
+                        <input type="text" id="urlInput" class="form-control" placeholder="Enter URL">
+                    </div>
+                    <button id="shareButton" class="btn btn-primary btn-block mt-4">Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.11/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script>
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         }
 
+        document.addEventListener('DOMContentLoaded', () => {
+            // Populate input fields with query parameters
+            document.getElementById('titleInput').value = getQueryParam('title') || 'Default Title';
+            document.getElementById('textInput').value = getQueryParam('text') || 'Default Text';
+            document.getElementById('urlInput').value = getQueryParam('url') || window.location.origin;
+        });
+
         document.getElementById('shareButton').addEventListener('click', async () => {
-            const title = getQueryParam('title') || 'Default Title';
-            const text = getQueryParam('text') || 'Default Text';
-            const url = getQueryParam('url') || window.location.origin;
+            const title = document.getElementById('titleInput').value;
+            const text = document.getElementById('textInput').value;
+            const url = document.getElementById('urlInput').value;
 
             if (navigator.share) {
                 try {
