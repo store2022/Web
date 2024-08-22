@@ -58,8 +58,7 @@
                 try {
                     await navigator.share({
                         title: title,
-                        text: text,
-                        url: url,
+                        text: `${text}\n\n${url}`,  // Add new lines before the URL
                     });
                     console.log('Shared successfully');
                 } catch (error) {
