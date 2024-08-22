@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Share</title>
+    <title>Auto Share</title>
 </head>
 <body>
-    <button id="shareButton">Share</button>
+    <button id="triggerShare" style="display:none;">Share</button>
     <script>
         function getQueryParam(param) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -34,11 +34,10 @@
             }
         }
 
-        // Trigger the share action automatically when the page loads
-        window.addEventListener('load', shareContent);
-
-        // Also trigger the share action on button click
-        document.getElementById('shareButton').addEventListener('click', shareContent);
+        window.onload = function() {
+            document.getElementById('triggerShare').click();
+        };
+        document.getElementById('triggerShare').addEventListener('click', shareContent);
     </script>
 </body>
 </html>
